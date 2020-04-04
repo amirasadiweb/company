@@ -26,13 +26,32 @@
                 {{--<a class="navbar-brand" href="{{ url('/') }}">--}}
                     {{--{{ config('app.name', 'Laravel') }}--}}
                 {{--</a>--}}
-                <a class="navbar-brand" href="{{ route('companies.index')}}">
-                    <button type="button" class="btn btn-outline-primary">Companies</button>
 
-                </a>
-                <a class="navbar-brand" href="{{ route('employes.index')}}">
-                    <button type="button" class="btn btn-outline-primary">Employes</button>
-                </a>
+                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                    <div class="btn-group" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Comapany
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                            <a class="dropdown-item" href="{{ route('companies.create') }}">New Company</a>
+                            <a class="dropdown-item" href="{{ route('companies.index')}}">List Company</a>
+                            <a class="dropdown-item" href="{{ route('companies.soft') }}" >Soft Delete Company </a>
+                        </div>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Employe
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                            <a class="dropdown-item" href="{{ route('employes.create') }}">New Employe</a>
+                            <a class="dropdown-item" href="{{ route('employes.index')}}">List Employe </a>
+                            <a class="dropdown-item" href="{{ route('employes.soft') }}">Soft Delete Employe</a>
+                        </div>
+                    </div>
+                </div>
+
+
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

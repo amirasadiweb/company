@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\Employe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests;
+
+
 
 class CompaniesController extends Controller
 {
@@ -17,7 +21,7 @@ class CompaniesController extends Controller
 
     public function index()
     {
-        $companies = DB::table('companies')->orderBy('created_at', 'desc')->paginate(10);
+        $companies = Company::withoutTrashed()->orderBy('id', 'desc')->paginate(10);
         return view('companies.index',compact('companies'));
     }
 
@@ -31,8 +35,10 @@ class CompaniesController extends Controller
 
 
         $dataValidate=$request->validate([
-            'name'=>'required',
-            'logo'=>'dimensions:min_width=100,min_height=100'
+            'name'=>'required|unique:companies,name',
+            'email'=>'required|email|unique:companies,email',
+            'logo'=>'mimes:jpeg,jpg,png|dimensions:min_width=100,min_height=100',
+            'website'=>'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
         ] );
 
         
@@ -53,7 +59,8 @@ class CompaniesController extends Controller
             $company->logo=$logoPath;
             $company->website=$request->website;
             $company->save();
-            return redirect('companies')->with('success','Success Create New Company ');
+            
+            return redirect('companies')->with('success','Success Create ' . $company->name. ' Company');
 
 
 
@@ -70,7 +77,8 @@ class CompaniesController extends Controller
 
     public function edit(Company $company)
     {
-        return view('companies.edit',compact('company'));
+        $redir=url()->previous();
+        return view('companies.edit',compact('company','redir'));
     }
 
     public function update(Request $request,$company)
@@ -78,7 +86,9 @@ class CompaniesController extends Controller
 
         $dataValidate=$request->validate([
             'name'=>'required',
-            'logo'=>'dimensions:min_width=100,min_height=100'
+            'email'=>'required|email',
+            'logo'=>'mimes:jpeg,jpg,png|dimensions:min_width=100,min_height=100',
+            'website'=>'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
         ] );
 
 
@@ -86,14 +96,24 @@ class CompaniesController extends Controller
 
 
             $comp = Company::find($company);
+            $logoPath=$comp->logo;
 
 
             if ($request->hasFile('logo')) {
                 $logoExtenition = $request->file('logo')->getClientOriginalName();
                 $name = time() . rand(999, 9999) . '-company' . '.' . $logoExtenition;
                 $logoPath = $request->file('logo')->move('storage/app/public', $name);
-                $comp->logo = $logoPath;
+            }
 
+
+            if($comp->logo != $logoPath){
+                $comp->logo=$logoPath;
+            }
+
+
+
+            if($request->redir == 'http://127.0.0.1:8000/companies'){
+                $request->redir= 'http://127.0.0.1:8000/companies?page=1';
             }
 
 
@@ -101,11 +121,17 @@ class CompaniesController extends Controller
 
             $comp->name = $request->name;
             $comp->email = $request->email;
-            $comp->logo=$logoPath;
             $comp->website = $request->website;
 
             $comp->save();
-            return redirect('companies')->with('primary','Update Company ');
+
+            if($request->redir == 'http://127.0.0.1:8000/companies'){
+                $request->redir = 'http://127.0.0.1:8000/companies?page=1';
+            }
+
+
+            return redirect($request->redir.'#'.$comp->id)->with('primary','Update Company '.$comp->name);
+
         }
 
 
@@ -114,9 +140,40 @@ class CompaniesController extends Controller
     public function destroy($company)
     {
 
-        Company::destroy($company);
+
+//        Employe::where('company_id',$company)->delete();
+//        DB::table('employes')->where('company_id', $company);
+//        Employe::find($company)->delete();
+//        Company::destroy($company);
+
+
+        $comp=Company::find($company);
+        $comp->employes()->delete();
+        Company::findOrFail($company)->delete();
+
+//        $comp->delete();
+
+
         return redirect()->back()->with('delete','Delete Company');
 
+    }
+
+    public function softdelete()
+    {
+        $soft=Company::onlyTrashed()->orderBy('deleted_at', 'desc')->paginate(10);
+        return view('companies.soft',compact('soft'));
+    }
+
+    public function restore($soft)
+    {
+        Company::onlyTrashed()->findOrFail($soft)->restore();
+        return back();
+    }
+
+    public function force($soft)
+    {
+        Company::onlyTrashed()->findOrFail($soft)->forceDelete();
+        return back();
     }
 
 

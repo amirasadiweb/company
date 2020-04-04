@@ -26,7 +26,7 @@
 
 
                     <div class="form-group">
-                        <label for="email">Company </label>
+                        <label for="company_id">Company </label>
                         <select class="custom-select" name="company_id">
                             @foreach(\App\Company::all() as $company)
 
@@ -37,15 +37,19 @@
                     </div>
 
 
-                    <div class="form-group">
-                        <label for="email">Email </label>
+                    <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
+                    <label for="email">Email </label>
                         <input type="email" name="email" class="form-control" id="email" value="{{old('email')}}">
+                        {!!  $errors->first('email','<p class="help-block btn-outline-danger">:message</p>')  !!}
+
                     </div>
 
 
-                    <div class="form-group">
+                    <div class="form-group {{ $errors->has('phone') ? 'has-error' : ''}}">
                         <label for="phone">Phone</label>
                         <input type="text" name="phone" class="form-control" id="phone" value="{{old('phone')}}">
+                        {!!  $errors->first('phone','<p class="help-block btn-outline-danger">:message</p>')  !!}
+
                     </div>
 
 

@@ -6,8 +6,6 @@
         <div class="row justify-content-center">
 
             <div class="col-md-4">
-
-
                 <form method="post" action="{{route('companies.update',$company->id)}}" enctype="multipart/form-data">
                     @csrf
                     {{ method_field('PATCH') }}
@@ -33,6 +31,8 @@
                         <label for="website">Web Site</label>
                         <input type="text" name="website" class="form-control" id="website" value="{{$company->website}}">
                     </div>
+
+                    <input type="hidden" name="redir" value="{{$redir}}" />
 
 
                     <div class="form-group">

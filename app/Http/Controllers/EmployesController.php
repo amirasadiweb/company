@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Company;
 use App\Employe;
 use Illuminate\Http\Request;
+use App\Http\Requests;
 
 class EmployesController extends Controller
 {
@@ -21,8 +22,7 @@ class EmployesController extends Controller
 
     public function index()
     {
-        $employs=Employe::paginate(10);
-
+        $employs=Employe::withoutTrashed()->with('company')->orderBy('id', 'desc')->paginate(10);
         return view('employs.index',compact('employs'));
     }
 
@@ -42,16 +42,21 @@ class EmployesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,Employe $employe)
+    public function store(Request $request,Company $company)
     {
 
+
         $dataValidate=$request->validate([
-            'firstname'=>'required',
-            'lastname'=>'required'
+            'firstname'=>'required|min:6',
+            'lastname'=>'required',
+            'email'=>'required|email|unique:employes,email',
+            'phone'=>'min:7|numeric'
         ] );
 
         if($dataValidate)
         {
+            $employe=new Employe();
+
             $employe->firstname=$request->firstname;
             $employe->lastname=$request->lastname;
             $employe->company_id=$request->company_id;
@@ -59,8 +64,8 @@ class EmployesController extends Controller
             $employe->phone=$request->phone;
             $employe->save();
 
-//            $company->employes()->create($request->all());
-            return back()->with('success','Success Create New Employe ');
+
+            return redirect()->route('employes.index')->with('success','Success Create New Employe ');
 
 
         }
@@ -89,7 +94,8 @@ class EmployesController extends Controller
      */
     public function edit(Employe $employe)
     {
-        return view('employs.edit',compact('employe'));
+        $redir=url()->previous();
+        return view('employs.edit',compact('employe','redir'));
 
     }
 
@@ -102,14 +108,16 @@ class EmployesController extends Controller
      */
     public function update(Request $request,Employe $employe)
     {
+
         $dataValidate=$request->validate([
-            'firstname'=>'required',
-            'lastname'=>'required'
+            'firstname'=>'required|min:6',
+            'lastname'=>'required',
+            'email'=>'required|email',
+            'phone'=>'min:7|numeric'
         ] );
 
         if($dataValidate)
         {
-//            dd($request->all());
             $employe->firstname=$request->firstname;
             $employe->lastname=$request->lastname;
             $employe->company_id=$request->company_id;
@@ -117,7 +125,12 @@ class EmployesController extends Controller
             $employe->phone=$request->phone;
             $employe->save();
 
-            return back()->with('primary','Update Employ');
+            if($request->redir == 'http://127.0.0.1:8000/employes'){
+                $request->redir= 'http://127.0.0.1:8000/employes?page=1';
+            }
+
+
+            return redirect($request->redir.'#'.$employe->id)->with('primary','Update Employ');
 
 
         }
@@ -132,9 +145,28 @@ class EmployesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
     public function destroy($employ)
     {
         Employe::destroy($employ);
         return redirect()->back()->with('delete','Delete Employ');
     }
+
+    public function softdelete()
+    {
+        $soft=Employe::onlyTrashed()->orderBy('deleted_at', 'desc')->paginate(10);
+        return view('employs.soft',compact('soft'));
+    }
+
+    public function restore($soft)
+    {
+        Employe::onlyTrashed()->findOrFail($soft)->restore();
+        return back();
+    }
+
+    public function force($soft)
+    {
+        Employe::onlyTrashed()->findOrFail($soft)->forceDelete();
+        return back();
+   }
 }

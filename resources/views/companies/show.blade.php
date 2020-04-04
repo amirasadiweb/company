@@ -18,15 +18,17 @@
                     </div>
 
 
-                    <div class="form-group">
+                    <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
                         <label for="email">Email </label>
                         <input type="email" name="email" class="form-control" id="email" value="{{old('email')}}">
+                        {!!  $errors->first('email','<p class="help-block btn-outline-danger">:message</p>')  !!}
                     </div>
 
 
-                    <div class="form-group">
+                    <div class="form-group {{ $errors->has('website') ? 'has-error' : ''}}">
                         <label for="website">Web Site</label>
                         <input type="text" name="website" class="form-control" id="website" value="{{old('website')}}">
+                        {!!  $errors->first('website','<p class="help-block btn-outline-danger">:message</p>')  !!}
                     </div>
 
 

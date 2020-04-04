@@ -6,15 +6,19 @@
 
     <div class="row justify-content-center">
 
-        <div class="col-md-12">
-            <div class=" col-md-3 mb-3">
-                <a href="{{ route('employes.create') }}">
-                    <button type="button" class="btn btn-outline-success">New Employ</button>
-                </a>
+        <div class="col-md-12 ">
 
-            </div>
+
+
+
             <table class="table table-bordered table-hover" style="text-align: center">
                 <thead>
+                <tr>
+                    <th colspan="9">
+                        List Employes
+
+                    </th>
+                </tr>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Firstname</th>
@@ -28,7 +32,7 @@
                 </thead>
                 <tbody>
                  @foreach($employs as $index => $employ)
-                        <tr>
+                        <tr id="{{$employ->id}}">
                             <td>{{$index+1}}</td>
                             <td>{{$employ->firstname}}</td>
                             <td>{{$employ->lastname}}</td>
@@ -36,7 +40,7 @@
                             <td>{{$employ->phone}}</td>
                             <td>
 
-                                {{$employ->company->name}}
+                                {{$employ->Company->name}}
 
 
 

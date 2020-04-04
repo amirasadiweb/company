@@ -22,6 +22,7 @@ class CreateEmployesTable extends Migration
             $table->string('lastname');
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade')->onUpdate('cascade');

@@ -10,12 +10,7 @@
         <div class="row justify-content-center">
 
             <div class="col-md-12">
-                <div class=" col-md-3 mb-3">
-                    <a href="{{ route('employes.create') }}">
-                        <button type="button" class="btn btn-outline-success">New Employ</button>
-                    </a>
 
-                </div>
                 <table class="table table-bordered table-hover" style="text-align: center">
                     <thead>
                     <tr>

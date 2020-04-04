@@ -7,16 +7,19 @@
     <div class="row justify-content-center">
 
         <div class="col-md-12">
-            <div class=" col-md-3 mb-3">
-                <a href="{{ route('companies.create') }}">
-                    <button type="button" class="btn btn-outline-success">New company</button>
-                </a>
 
-            </div>
+
 
 
             <table class="table table-bordered table-hover" style="text-align: center">
                 <thead>
+                <tr>
+                    <th colspan="8">
+                         List Companies
+
+                    </th>
+                </tr>
+
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
@@ -31,7 +34,7 @@
                 <tbody>
                  @foreach($companies as $index => $company)
                         <tr>
-                            <td>{{$index+1}}</td>
+                            <td id="{{$company->id}}">{{$index+1}}</td>
                             <td>{{$company->name}}</td>
                             <td>{{$company->email}}</td>
                             <td>
@@ -52,7 +55,6 @@
                                 <form method="post" action="{{route('companies.destroy',$company->id)}}">
                                     @method('delete')
                                     @csrf
-                                    {{--<input type="hidden" name="company_id" value="{{$company->id}}"/>--}}
                                     <button type="submit" class="btn btn-outline-danger">delete</button>
                                 </form>
 
