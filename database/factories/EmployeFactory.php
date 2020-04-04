@@ -11,7 +11,7 @@ $factory->define(\App\Employe::class, function (Faker $faker) {
         'firstname' => $faker->name,
         'lastName' => $faker->lastName,
         'email' => $faker->unique()->safeEmail,
-        'phone' => $faker->phoneNumber,
+        'phone' => $faker->creditCardNumber,
 
     ];
 });
