@@ -2,26 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5f4bcdd0-5458-45e1-ad76-57530d481c23" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/companies/soft.blade.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/employs/soft.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Company.php" afterPath="$PROJECT_DIR$/app/Company.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Employe.php" afterPath="$PROJECT_DIR$/app/Employe.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/CompaniesController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/CompaniesController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/EmployesController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/EmployesController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/factories/CompanyFactory.php" afterPath="$PROJECT_DIR$/database/factories/CompanyFactory.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/migrations/2020_03_27_092012_create_companies_table.php" afterPath="$PROJECT_DIR$/database/migrations/2020_03_27_092012_create_companies_table.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/migrations/2020_03_27_103138_create_employes_table.php" afterPath="$PROJECT_DIR$/database/migrations/2020_03_27_103138_create_employes_table.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/companies/edit.blade.php" afterPath="$PROJECT_DIR$/resources/views/companies/edit.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/companies/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/companies/index.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/companies/list.blade.php" afterPath="$PROJECT_DIR$/resources/views/companies/list.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/companies/show.blade.php" afterPath="$PROJECT_DIR$/resources/views/companies/show.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/employs/edit.blade.php" afterPath="$PROJECT_DIR$/resources/views/employs/edit.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/employs/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/employs/index.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/employs/show.blade.php" afterPath="$PROJECT_DIR$/resources/views/employs/show.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/web.php" afterPath="$PROJECT_DIR$/routes/web.php" />
     </list>
     <ignored path="laravel7.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -574,12 +555,12 @@
       <workItem from="1585852808491" duration="10123000" />
       <workItem from="1585913728382" duration="1284000" />
       <workItem from="1585934641906" duration="6734000" />
-      <workItem from="1585980216714" duration="3254000" />
+      <workItem from="1585980216714" duration="3505000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="129337000" />
+    <option name="totallyTimeSpent" value="129588000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
